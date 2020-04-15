@@ -12,7 +12,7 @@ on:
 
 jobs:
 
-  make-test-iso:
+  make-iso:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -24,4 +24,4 @@ jobs:
       run: cd image-builder && sudo make iso
 
     - name: List dirs
-      run: ls -lR
+      run: ls -lR image-builder
