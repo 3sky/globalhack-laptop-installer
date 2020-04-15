@@ -12,7 +12,7 @@ on:
 
 jobs:
 
-  make-iso:
+  make-test-iso:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
