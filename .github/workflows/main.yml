@@ -1,10 +1,14 @@
-name: Laptop ipxe image boot builder
+name: Build iso image without release
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - '*'
+    tags:
+      - '!v*'
   pull_request:
-    branches: [ master ]
+    branches: 
+     - '*'
 
 jobs:
 
@@ -17,4 +21,7 @@ jobs:
       run: sudo apt-get install syslinux-utils
 
     - name: Run make
-      run: cd image-builder && make iso
+      run: cd image-builder && sudo make iso
+
+    - name: List dirs
+      run: ls -lR
