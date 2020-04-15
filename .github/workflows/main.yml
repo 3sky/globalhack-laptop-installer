@@ -8,34 +8,13 @@ on:
 
 jobs:
 
-  build:
-
+  make-iso:
     runs-on: ubuntu-latest
-
     steps:
+    - uses: actions/checkout@v2
 
-    - name: check the code out
-      uses: actions/checkout@master
+    - name: install isohybrid 
+      run: sudo apt-get install syslinux-utils
 
-    - name: check some stuff
-      run: pwd
-
-    - name: check some stuff
-      run: export
-
-    - name: check some stuff
-      run: ls -al
-
-    - name: Login to docker hub
-      uses: actions-hub/docker/login@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build :latest
-      run: docker build -t ${GITHUB_REPOSITORY}:latest actions-worker
-
-    - name: Push to docker hub :latest
-      uses: actions-hub/docker@master
-      with:
-        args: push ${GITHUB_REPOSITORY}:latest
+    - name: Run make
+      run: cd image-builder && make iso

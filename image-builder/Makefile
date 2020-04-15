@@ -1,5 +1,5 @@
 .PHONY: help
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := iso
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -20,8 +20,8 @@ DOCKER_BUILD = DOCKER_BUILDKIT=1 docker build $(BUILD_ARGS) -t $@ --target iso $
 include configs/current_release
 
 # Need to assign HTTP SERVER IP
-all: private BUILD_ARGS := --build-arg ENDPOINT=$(ENDPOINT) --build-arg CHANNEL=$(CHANNEL)
-all: configs ## build release of artifacts
+iso: private BUILD_ARGS := --build-arg ENDPOINT=$(ENDPOINT) --build-arg CHANNEL=$(CHANNEL)
+iso: configs ## build release of artifacts
 	@echo "Ensure http://${ENDPOINT:? please run make with 'ENDPOINT=<ip>'}/${CHANNEL:? please run make with 'CHANNEL=<channel_name>'}.ipxe is available before installing $(CHANNEL).iso"
 	@python3 scripts/gen_embedded_script.py configs/$(CHANNEL)/gen_embedded.json dist/$(CHANNEL)/
 	$(DOCKER_BUILD)
