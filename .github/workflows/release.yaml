@@ -16,7 +16,7 @@ jobs:
       run: sudo apt-get install syslinux-utils
 
     - name: Run make
-      run: cd image-builder && make iso
+      run: cd image-builder && sudo make iso
 
     - name: Set CHANNEL
       run: echo ::set-env name=CHANNEL::$(grep "CHANNEL" ./image-builder/configs/current_release | cut -d'=' -f2)
