@@ -34,8 +34,8 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset 
+
+    - name: Upload channel asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -43,4 +43,14 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}  
         asset_path: ./image-builder/dist/${{ env.CHANNEL }}/${{ env.CHANNEL}}.zip
         asset_name: ${{ env.CHANNEL }}-${{ env.DATE }}.zip
+        asset_content_type: application/zip
+
+    - name: Upload boot.ipxe 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}  
+        asset_path: ./image-builder/dist/${{ env.CHANNEL }}/boot.ipxe
+        asset_name: ${{ env.DATE }}-boot.ipxe
         asset_content_type: application/zip
